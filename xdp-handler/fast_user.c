@@ -278,9 +278,9 @@ void read_config() {
 	char str[INET_ADDRSTRLEN];
 	struct paxos_configure conf;
 
-	const char *eths[FAST_REPLICA_MAX] = {"9c:dc:71:56:8f:45",
-										"9c:dc:71:56:bf:45", 
-										"9c:dc:71:5e:2f:51", 
+	const char *eths[FAST_REPLICA_MAX] = {"98:f2:b3:c8:49:e4",
+										"9c:dc:71:4a:5c:20", 
+										"98:f2:b3:ca:e0:f0", 
 										"", 
 										""}; 
 
