@@ -1,10 +1,15 @@
 #!/bin/bash
 # Running setup as per README
 
-if [ ! -d "Electrode-Extension" ] || [ ! -d "Electrode-Extension" ]
+if [ ! -d "Electrode-Extension" ] && [ ! -d "../Electrode-Extension" ]
 then
     echo "Electrode-Extension not found"
     exit 1
+fi
+
+if [ -d "Electrode-Extension" ]
+then
+    cd Electrode-Extension
 fi
 
 if ! (uname -r | grep -q "5.8.0-050800-generic")
