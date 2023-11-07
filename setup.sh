@@ -17,6 +17,7 @@ then
     wget https://raw.githubusercontent.com/pimlie/ubuntu-mainline-kernel.sh/master/ubuntu-mainline-kernel.sh
     sudo bash ubuntu-mainline-kernel.sh -i 5.8.0
     echo "Must load linux kernel version 5.8.0-050800-generic. Please run sudo reboot and rerun the script."
+    exit 1
 else
     echo "Linux kernel version 5.8.0-050800-generic found. Continuing..."
 fi
