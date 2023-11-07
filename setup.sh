@@ -44,11 +44,11 @@ sudo service irqbalance stop
     done)
 
 echo "Setup almost done. Please add MAC addresses to xdp-handler/fast_user.c on line 281, then run the following:"
-echo '[Client]\t  cd xdp-handler && make clean && make EXTRA_CFLAGS="-DTC_BROADCAST -DFAST_QUORUM_PRUNE -DFAST_REPLY"'
-echo '[Replica idx]\t make clean && make CXXFLAGS="-DTC_BROADCAST -DFAST_QUORUM_PRUNE -DFAST_REPLY"'
-echo '[Client]\t  sudo ./fast ens1f1np1'
-echo '[Replica idx]\t sudo taskset -c 1 ./bench/replica -c config.txt -m vr -i {idx}'
-echo '[Separate Client]\t ./bench/client -c config.txt -m vr -n 10000'
+echo '[Client]          cd xdp-handler && make clean && make EXTRA_CFLAGS="-DTC_BROADCAST -DFAST_QUORUM_PRUNE -DFAST_REPLY"'
+echo '[Replica idx]     make clean && make CXXFLAGS="-DTC_BROADCAST -DFAST_QUORUM_PRUNE -DFAST_REPLY"'
+echo '[Client]          sudo ./fast ens1f1np1'
+echo '[Replica idx]     sudo taskset -c 1 ./bench/replica -c config.txt -m vr -i {idx}'
+echo '[Separate Client] ./bench/client -c config.txt -m vr -n 10000'
 
 
 
