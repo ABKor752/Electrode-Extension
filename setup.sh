@@ -17,6 +17,7 @@ then
     wget https://raw.githubusercontent.com/pimlie/ubuntu-mainline-kernel.sh/master/ubuntu-mainline-kernel.sh
     sudo bash ubuntu-mainline-kernel.sh -i 5.8.0
     echo "Must load linux kernel version 5.8.0-050800-generic. Please run sudo reboot and rerun the script."
+    echo "IMPORTANT: Please add MAC addresses to xdp-handler/fast_user.c on line 281 (or 283, depending on recent edits)."
     exit 1
 else
     echo "Linux kernel version 5.8.0-050800-generic found. Continuing..."
@@ -43,12 +44,19 @@ sudo service irqbalance stop
     echo $CPU | sudo tee /proc/irq/$IRQ/smp_affinity_list
     done)
 
-echo "Setup almost done. Please add MAC addresses to xdp-handler/fast_user.c on line 281, then run the following:"
-echo '[Client]          cd xdp-handler && make clean && make EXTRA_CFLAGS="-DTC_BROADCAST -DFAST_QUORUM_PRUNE -DFAST_REPLY"'
-echo '[Replica idx]     make clean && make CXXFLAGS="-DTC_BROADCAST -DFAST_QUORUM_PRUNE -DFAST_REPLY"'
-echo '[Client]          sudo ./fast ens1f1np1'
-echo '[Replica idx]     sudo taskset -c 1 ./bench/replica -c config.txt -m vr -i {idx}'
-echo '[Separate Client] ./bench/client -c config.txt -m vr -n 10000'
+# echo "Setup almost done. Please add MAC addresses to xdp-handler/fast_user.c on line 281, then run the following:"
+# echo '[Client]          cd xdp-handler && make clean && make EXTRA_CFLAGS="-DTC_BROADCAST -DFAST_QUORUM_PRUNE -DFAST_REPLY"'
+# echo '[Replica idx]     make clean && make CXXFLAGS="-DTC_BROADCAST -DFAST_QUORUM_PRUNE -DFAST_REPLY"'
+# echo '[Client]          sudo ./fast ens1f1np1'
+# echo '[Replica idx]     sudo taskset -c 1 ./bench/replica -c config.txt -m vr -i {idx}'
+# echo '[Separate Client] ./bench/client -c config.txt -m vr -n 10000'
 
+cd xdp-handler && make clean && make EXTRA_CFLAGS="-DTC_BROADCAST -DFAST_QUORUM_PRUNE -DFAST_REPLY"
+cd .. && make clean && make CXXFLAGS="-DTC_BROADCAST -DFAST_QUORUM_PRUNE -DFAST_REPLY"
+
+echo "When all terminals are ready (two clients and two copies of each replica), run the following:"
+echo '[Client and Replicas]     cd xdp-handler && sudo ./fast ens1f1np1'
+echo '[Separate Replica idx]    sudo taskset -c 1 ./bench/replica -c config.txt -m vr -i {idx}'
+echo '[Separate Client]         ./bench/client -c config.txt -m vr -n 10000'
 
 

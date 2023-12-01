@@ -24,6 +24,8 @@
 #include <asm-generic/posix_types.h>
 #include <linux/if_link.h>
 #include <linux/limits.h>
+#include <getopt.h>
+#include <ctype.h>
 
 #include <linux/bpf.h>
 #include <bpf/bpf.h>
@@ -278,11 +280,11 @@ void read_config() {
 	char str[INET_ADDRSTRLEN];
 	struct paxos_configure conf;
 
-	const char *eths[FAST_REPLICA_MAX] = {"98:f2:b3:c8:49:e4",
-										"9c:dc:71:4a:5c:20", 
-										"98:f2:b3:ca:e0:f0", 
-										"", 
-										""}; 
+	const char *eths[FAST_REPLICA_MAX] = {"9c:dc:71:5e:2f:e1",
+										"9c:dc:71:5d:d5:71", 
+										"9c:dc:71:56:af:65", 
+										"9c:dc:71:49:98:11", 
+										"9c:dc:71:5d:01:31"}; // Add two more for f = 3 
 
 	fp = fopen("../config.txt", "r");
 	fscanf(fp, "%s", buff); // must be 'f'
