@@ -10,15 +10,21 @@ class RunData:
 
 
     def __str__(self):
-        result = 'REQUESTS = ' + str(self.num_requests) + "; "
-        result += 'RUNTIME (sec) = ' + str(self.runtime) + "; "
-        result += 'THROUGHPUT (K reqs/sec) = ' + str(round(self.tputK, 3)) + "; "
-        result += 'LATENCY (us) (Median) = ' + str(self.medianLat) + "; "
-        result += 'LATENCY (us) (Tail/99th) = ' + str(self.tailLat)
-        return result
+        # result = 'REQUESTS = ' + str(self.num_requests) + "; "
+        # result += 'RUNTIME (sec) = ' + str(self.runtime) + "; "
+        # result += 'THROUGHPUT (K reqs/sec) = ' + str(round(self.tputK, 3)) + "; "
+        # result += 'LATENCY (us) (Median) = ' + str(self.medianLat) + "; "
+        # result += 'LATENCY (us) (Tail/99th) = ' + str(self.tailLat)
+        # return result
+        result = ''
+        for val in [self.num_requests, self.runtime, round(self.tputK, 3), self.medianLat, self.tailLat]:
+            result += str(val) + ','
+        return result[:-1]
 
 def run_transaction(num_clients, num_requests):
     rundata = []
+    counter1 = 0
+    counter2 = 0
     result = subprocess.run(
         ["./bench/client", "-c", "config.txt", "-m", "vr", "-n", str(num_requests), "-t", str(num_clients)],
         capture_output=True,
@@ -33,16 +39,18 @@ def run_transaction(num_clients, num_requests):
             rundata.append(RunData(num_requests, time))
         index = line.find("Median ")
         if (index != -1):
-            assert rundata[-1].medianLat == -1, 'Threads/Clients finished out of order!'
-            rundata[-1].medianLat = int(line[index:].split()[3]) / 1000
+            rundata[counter1].medianLat = int(line[index:].split()[3]) / 1000
+            counter1 += 1
         index = line.find("99th")
         if (index != -1):
-            assert rundata[-1].tailLat == -1, 'Threads/Clients finished out of order!'
-            rundata[-1].tailLat = int(line[index:].split()[4]) / 1000
+            rundata[counter2].tailLat = int(line[index:].split()[4]) / 1000
+            counter2 += 1
 
     for elt in rundata:
         print(elt)
 
 
 if __name__ == '__main__':
-    run_transaction(1, 10000)
+    for num_clients in range(1, 8):
+        for num_requests in range(10000, 60000, 10000):
+            run_transaction(num_clients, num_requests)
