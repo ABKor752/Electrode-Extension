@@ -280,11 +280,11 @@ void read_config() {
 	char str[INET_ADDRSTRLEN];
 	struct paxos_configure conf;
 
-	const char *eths[FAST_REPLICA_MAX] = {"	9cdc715e0f41",
-										"9cdc715dd541", 
-										"9cdc715d47c1", 
-										"9cdc715b22a1", 
-										"9cdc715b42d1"}; // Add two more for f = 3 
+	const char *eths[FAST_REPLICA_MAX] = {"9c:dc:71:5e:0f:41",
+										"9c:dc:71:5d:d5:41", 
+										"9c:dc:71:5d:47:c1", 
+										"9c:dc:71:5b:22:a1", 
+										"9c:dc:71:5b:42:d1"}; // Add two more for f = 3 
 
 	fp = fopen("../config.txt", "r");
 	fscanf(fp, "%s", buff); // must be 'f'
