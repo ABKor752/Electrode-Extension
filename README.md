@@ -1,3 +1,5 @@
+Below is the README for the original Electrode repository, whose link is in the paper.
+
 # Electrode
 
 This is an implementation of accelerating multi-Paxos Protocol using eBPF, as described in the paper ["Electrode: Accelerating Distributed
