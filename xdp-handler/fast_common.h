@@ -14,7 +14,7 @@
 
 #define ETH_ALEN	6		/* Octets in one ethernet addr	 */
 
-#define CLUSTER_SIZE 3 // need 
+#define CLUSTER_SIZE 5 // 3 // need 
 #define FAST_REPLICA_MAX 100 // max # of replicas.
 #define NONFRAG_MAGIC 0x20050318
 #define FRAG_MAGIC 0x20101010
