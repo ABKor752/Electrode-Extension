@@ -51,7 +51,6 @@ def run_transaction(num_clients, num_requests):
 
 
 if __name__ == '__main__':
-    for num_clients in range(1, 5):
-        num_times = 10000 * (10 ** (num_clients - 1))
-        for num_requests in range(num_times, num_times + 5):
+    for num_clients in range(3, 5):
+        for num_requests in [1000000]:
             run_transaction(num_clients, num_requests)
